@@ -1,0 +1,93 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+class Employee     //Class Employee declared
+{
+    private: 
+	    int empID;
+	    char empName[30] ;
+	    char designation[30];
+	    int ddj,mmj,yyj;
+	    int ddb,mmb,yyb;
+    public:
+	    
+	void readEmployee()  //function to read employee details
+	{
+		cout<<"EMPLOYEE DETAILS"<<endl;
+		cout<<"ENTER EMPLOYEE ID : " ;
+		cin>>empID;
+		cout<<"ENTER  NAME OF THE EMPLOYEE : ";
+		cin>>empName;
+
+		cout<<"ENTER DESIGNATION : ";
+		cin>>designation;
+		
+		cout<<"ENTER DATE OF JOIN:"<<endl;
+		cout<<"DATE : "; 
+		cin>>ddj;
+		cout<<"MONTH: "; 
+		cin>>mmj;
+		cout<<"YEAR : "; 
+		cin>>yyj;
+		cout<<"ENTER DATE OF BIRTH:"<<endl;
+		cout<<"DATE : "; 
+		cin>>ddb;
+		cout<<"MONTH: "; 
+		cin>>mmb;
+		cout<<"YEAR : "; 
+		cin>>yyb;
+	}
+	
+	void displayEmployee()  //function to write employee details
+	{  
+		cout<<"EMPLOYEE ID: "<<empID<<endl;
+		cout<<"EMPLOYEE NAME: "<<empName<<endl;
+		cout<<"DESIGNATION: "<<designation<<endl;
+		cout<<"DATE OF JOIN: "<<ddj<<"/"<<mmj<<"/"<<yyj<<endl;
+		cout<<"DATE OF BIRTH: "<<ddb<<"/"<<mmb<<"/"<<yyb<<endl;
+	}
+};
+
+int main()
+{
+	Employee emp;  //object of Employee class
+	
+	emp.readEmployee();  //read employee details
+	
+	
+	fstream file;   //write object into the file
+	file.open("emp.dat",ios::out);
+	if(!file)
+	{
+		cout<<"Error in creating file..."<<endl;
+		exit(0);
+	}
+	
+	file.write((char*)&emp,sizeof(emp));
+	file.close();
+	cout<<"Date saved into file the file."<<endl;;
+	
+	
+	file.open("emp.dat",ios::in);  //open file again 
+	if(!file)
+	{
+		cout<<"Error in opening file..."<<endl;
+		exit(0);
+	}
+	
+	if(file.read((char*)&emp,sizeof(emp)))
+	{
+		emp.displayEmployee();
+		cout<<"Data extracted from file.."<<endl;
+	}
+	else
+	{
+		cout<<"Error in reading data from file..."<<endl;
+		exit(0);
+	}
+	
+	file.close();	
+	return 0;
+}
+
