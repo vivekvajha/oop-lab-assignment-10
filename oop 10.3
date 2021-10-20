@@ -1,0 +1,49 @@
+#include<iostream>
+#include<fstream>
+using namespace std;
+
+int main(){
+    fstream f1, f2;
+    char name1[20],name2[20], c1, c2;
+    int flag=3;
+
+    cout<<"Enter File 1 Name : "; //Input for first file name
+    cin>>name1;
+    f1.open(name1,ios::in);
+    if(!f1)  //if the name doesn't match then an error will be displayed
+    {
+        cout<<"File can't be opened"<<endl;
+    }
+    cout<<"Enter File 2 Name : ";  ////Input for first file name
+    cin>>name2;
+    f2.open(name2,ios::in); //open function used to open the file
+    if(!f2)  //if the name doesn't match then an error will be displayed
+    {
+        cout<<"File can't be opened"<<endl;
+    }
+    while(1) //to compare the contents of both the text files
+    {
+        c1=f1.get();
+        c2=f2.get();
+        if(c1!=c2)
+        {
+            flag=0;
+            break;
+        }
+        if((c1==EOF)||(c2==EOF))
+        {
+            break;
+        }    
+    }
+    f1.close();  //close the first file
+    f2.close();  //close the second file
+    if(flag)
+    {
+        cout<<"The contents in the files are same.";
+    }    
+    else
+    {
+        cout<<"The contents in the files are not same.";
+    }
+    return 0;
+}
