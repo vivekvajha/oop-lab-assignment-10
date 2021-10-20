@@ -1,0 +1,37 @@
+#include<iostream>
+#include<fstream>
+using namespace std;
+
+int main()
+{
+    ofstream outfile;
+    ifstream infile;
+    
+    char fname1[20], fname2[20];
+    char ch, uch;
+    
+    cout<<"Enter the file name from where to append: ";  //input for name of first file
+    cin>>fname1;
+    
+    cout<<"Enter the file name where to append: ";      //input for name of second file
+    cin>>fname2;
+    
+    infile.open(fname1);   //opening the first file
+    
+    if(infile.fail())    //if the file name doesn't match, an error will be displayed
+    {
+        cout<<"No such a file exists";
+        exit(1);
+    }
+    outfile.open(fname2,ios::app);  //opening the second file 
+    
+    while(!infile.eof())  //for appending the contents of first file
+    {
+        ch=(char)infile.get();
+        outfile.put(ch);
+    }
+    infile.close();  //close the first file
+    outfile.close(); //close the second file
+    
+    return 0;
+}
